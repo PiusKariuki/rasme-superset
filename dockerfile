@@ -10,4 +10,4 @@ ENV ADMIN_EMAIL=pius@openfn.org
 
 EXPOSE 8088
 
-CMD ["superset", "run"]
+CMD ["superset", "run", "-h", "0.0.0.0", "-p", "8080"]
