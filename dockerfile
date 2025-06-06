@@ -2,11 +2,16 @@ FROM apache/superset:latest
 
 ENV SUPERSET_SECRET_KEY='render_secret_key'
 
-ENV ADMIN_USERNAME=admin
-ENV ADMIN_PASSWORD=admin
-ENV ADMIN_FIRST_NAME=superset
-ENV ADMIN_LAST_NAME=Admin
-ENV ADMIN_EMAIL=pius@openfn.org
+USER root
+
+# Optional: install build tools (not always needed, but safe)
+RUN apt-get update && \
+    apt-get install -y build-essential libssl-dev libffi-dev python3-dev libsasl2-dev libldap2-dev
+
+USER superset
+
+# ✅ Install the PostgreSQL driver
+RUN pip install psycopg2-binary
 
 
 RUN superset db upgrade && \
