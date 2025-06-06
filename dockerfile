@@ -1,4 +1,4 @@
-FROM apache/apache/superset:latest
+FROM apache/superset:latest
 
 ENV SUPERSET_SECRET_KEY='render_secret_key'
 
