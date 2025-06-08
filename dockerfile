@@ -1,6 +1,6 @@
 FROM apache/superset:latest
 
-ENV SUPERSET_SECRET_KEY='rasme'
+ENV SUPERSET_SECRET_KEY='bXYn5QG-9oE3h8sL2Z7N1U1JKmDh2AyFv2uFheCZHtM'
 
 USER root
 

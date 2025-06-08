@@ -1,12 +1,27 @@
+version: '3.7'
+
 services:
   superset:
-    build: .
+    image: apache/superset:latest
     container_name: superset
     ports:
       - "8088:8088"
+    environment:
+      SUPERSET_ENV: production
+      SUPERSET_LOAD_EXAMPLES: "yes"
+      SUPERSET_SECRET_KEY: "2j8WSJAIkfYnc4qUxUkVA2wnTMpHKC6FppJgBLxYpih/Wsl8PahRNneo"
     volumes:
       - superset_home:/app/superset_home
-    restart: always
+    restart: unless-stopped
+    entrypoint: /bin/bash
+    command: >
+      -c "
+        superset db upgrade &&
+        superset fab create-admin --username admin --firstname Superset --lastname Admin --email admin@superset.com --password admin &&
+        superset load-examples &&
+        superset init &&
+        exec superset run -h 0.0.0.0 -p 8088
+      "
 
 volumes:
   superset_home:
